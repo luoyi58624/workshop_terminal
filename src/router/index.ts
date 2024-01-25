@@ -10,12 +10,14 @@ const router = createRouter({
 		{
 			path: '/404',
 			name: 'NotFound',
-
 			component: () => import('@/pages/common/not_found.vue')
 		},
 		{
 			path: '/login',
 			name: 'Login',
+			meta: {
+				title: '登陆车间系统'
+			},
 			component: () => import('@/pages/login.vue')
 		},
 		{
@@ -35,6 +37,11 @@ const router = createRouter({
 })
 
 router.beforeEach(to => {
+	if (to.meta.title != null) {
+		window.document.title = to.meta.title
+	} else {
+		window.document.title = import.meta.env.VITE_TITLE
+	}
 	if (to.meta.auth == null || !to.meta.auth) return true
 	const userStore = useUserStore()
 	if (userStore.isLogin) return true

@@ -1,6 +1,7 @@
 import { defineConfig, loadEnv } from 'vite'
 import * as path from 'path'
 import vue from '@vitejs/plugin-vue'
+import vueJsxPlugin from '@vitejs/plugin-vue-jsx'
 import UnoCSS from 'unocss/vite'
 import AutoImport from 'unplugin-auto-import/vite'
 import Components from 'unplugin-vue-components/vite'
@@ -17,11 +18,12 @@ export default defineConfig(({ mode }) => {
 		},
 		plugins: [
 			vue(),
+			vueJsxPlugin(),
 			UnoCSS(),
 			AutoImport({
 				resolvers: [ElementPlusResolver()],
 				imports: ['vue', 'vue-router', 'pinia', '@vueuse/core'],
-				dirs: ['./src/stores', './src/utils']
+				dirs: ['./src/stores', './src/utils', './src/hooks']
 			}),
 			Components({
 				resolvers: [ElementPlusResolver()],
@@ -33,6 +35,7 @@ export default defineConfig(({ mode }) => {
 			})
 		],
 		server: {
+			host: '0.0.0.0',
 			port: 5173
 		},
 		build: {
@@ -52,7 +55,8 @@ export default defineConfig(({ mode }) => {
 					assetFileNames: `assets/[name].${new Date().getTime()}.[ext]`,
 					compact: true,
 					manualChunks: {
-						vue: ['vue', 'vue-router', 'pinia']
+						vue: ['vue', 'vue-router', 'pinia'],
+						'element-plus': ['element-plus']
 					}
 				}
 			}

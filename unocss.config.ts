@@ -28,7 +28,7 @@ export default defineConfig({
 	theme: {
 		breakpoints: {
 			xs: '0px',
-			sm: '640px',
+			sm: '540px',
 			md: '768px',
 			lg: '1024px',
 			xl: '1280px',
@@ -40,7 +40,7 @@ export default defineConfig({
 			success: colors.teal,
 			warning: colors.amber,
 			error: colors.red,
-			info: '#486079'
+			info: '#37506e'
 		}
 	},
 	shortcuts: [
@@ -50,7 +50,7 @@ export default defineConfig({
 		},
 		[
 			/^btn-(.*)$/,
-			([, c]) => `m-1 px-4 py-2 rounded-1 select-none text-white bg-${c} disabled:(bg-gray-3/80 cursor-not-allowed)`
+			([, c]) => `px-4 py-2 rounded-1 select-none text-white bg-${c} disabled:(bg-gray-3/80 cursor-not-allowed)`
 		],
 		[/^base-btn-(.*)$/, ([, c]) => `btn-${c} hover:enabled:text-primary`],
 		[/^ring-btn-(.*)$/, ([, c]) => `btn-${c} m-transition hover:enabled:(ring-2 ring-offset-2 ring-${c})`],
@@ -60,7 +60,23 @@ export default defineConfig({
 				`h-12 border-2 px-2 rounded text-lg bg-transparent hover:border-${c} focus:(outline-none border-${c} caret-${c})`
 		]
 	],
-	rules: [['m-transition', { transition: 'all ease-out 0.3s' }]],
+	rules: [
+		['m-transition', { transition: 'all ease-out 0.3s' }],
+		[
+			/^scrollbar-hide$/,
+			() => {
+				return `
+					.scrollbar-hide{
+						-ms-overflow-style: none; 
+						scrollbar-width: none; 
+					}	
+					.scrollbar-hide::-webkit-scrollbar{
+						display: none;
+					}				 
+				 `
+			}
+		]
+	],
 	safelist: [
 		// ...'prose prose-sm m-auto text-left'.split(' '),
 		// ...colorType.map(item => {
