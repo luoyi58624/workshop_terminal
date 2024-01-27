@@ -11,6 +11,7 @@ export default defineConfig(({ mode }) => {
 	const env = loadEnv(mode, process.cwd(), '')
 	return {
 		base: env.BUILD_BASE_URL,
+		// publicDir: env.BUILD_BASE_URL,
 		resolve: {
 			alias: {
 				'@': path.resolve(__dirname, 'src')
