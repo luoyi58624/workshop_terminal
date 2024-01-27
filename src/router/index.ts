@@ -26,7 +26,24 @@ const router = createRouter({
 			meta: {
 				auth: true
 			},
-			component: () => import('@/pages/home/index.vue')
+			component: () => import('@/pages/home/index.vue'),
+			children:[
+				{
+					path: '',
+					name: 'WorkpieceConfirm',
+					component: () => import('@/pages/home/workpiece_confirm/index.vue')
+				},
+				{
+					path: 'workpiece_accept',
+					name: 'WorkpieceAccept',
+					component: () => import('@/pages/home/workpiece_accept/index.vue')
+				},
+				{
+					path: 'workpiece_forward',
+					name: 'WorkpieceForward',
+					component: () => import('@/pages/home/workpiece_forward/index.vue')
+				}
+			]
 		},
 		{
 			path: '/test',

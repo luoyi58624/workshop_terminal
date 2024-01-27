@@ -1,15 +1,18 @@
 <script setup lang="ts">
+interface ButtonAttr {
+	name: string
+	path: string
+}
+
 const router = useRouter()
 const userStore = useUserStore()
 
-// 激活的工件按钮
-const activeWorkpieceButton = ref(0)
-
 // 工件按钮
-const workpieceButtons = ref<Array<{ id: number; name: string }>>([])
+const workpieceButtons = ref<Array<ButtonAttr>>([])
 
-function setActiveWorkpieceButton(value: number) {
-	activeWorkpieceButton.value = value
+function setActiveWorkpieceButton(data: ButtonAttr) {
+	activeWorkpieceButton.value = data.id
+	router.push(data.path)
 }
 
 function logout() {
@@ -20,16 +23,16 @@ function logout() {
 onBeforeMount(() => {
 	workpieceButtons.value = [
 		{
-			id: 0,
-			name: '工件确认'
+			name: '工件确认',
+			path: '/'
 		},
 		{
-			id: 1,
-			name: '工件接受'
+			name: '工件接受',
+			path: '/workpiece_accept'
 		},
 		{
-			id: 2,
-			name: '工件转出'
+			name: '工件转出',
+			path: '/workpiece_forward'
 		}
 	]
 })
@@ -42,7 +45,7 @@ onBeforeMount(() => {
 				v-for="item in workpieceButtons"
 				:key="item.id"
 				:class="[activeWorkpieceButton === item.id && 'actived']"
-				@click="setActiveWorkpieceButton(item.id)">
+				@click="setActiveWorkpieceButton(item)">
 				{{ item.name }}
 			</button>
 		</div>
