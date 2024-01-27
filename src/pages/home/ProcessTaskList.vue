@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+import loginBg from '@/assets/login_bg.jpg'
 const progressTaskScrollRef = ref<HTMLElement>()
 
 // 激活的加工任务
@@ -51,7 +52,7 @@ onBeforeMount(()=>{
 			:class="[activeProcessTask === item.id && 'bg-secondPrimary!']"
 			@click="setActiveProcessTask(item.id)">
 			<ProcessTaskState :state="item.state" />
-			<img src="/login_bg.jpg" alt="加工图" class="grow" />
+			<img :src="loginBg" alt="加工图" class="grow" />
 			<div class="text-sm text-center text-primary">{{ item.name }}</div>
 		</div>
 	</div>

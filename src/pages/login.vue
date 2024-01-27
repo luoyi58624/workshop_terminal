@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import loginBg from '@/assets/login_bg.jpg'
+
 const router = useRouter()
 const userStore = useUserStore()
 const username = ref('')
@@ -22,11 +24,11 @@ function login() {
 				<p class="xs:hidden lg:block">深圳市伟博思技术有限公司</p>
 			</div>
 			<div class="flex items-end">
-				<h3>{{title}}</h3>
+				<h3>{{ title }}</h3>
 				<p class="text-lg">(v1.0)</p>
 			</div>
 		</header>
-		<main class="grow px-4 bg-no-repeat bg-cover bg-center flex-center" style="background-image: url('/login_bg.jpg')">
+		<main class="grow px-4 bg-no-repeat bg-cover bg-center flex-center" :style="{ backgroundImage: `url(${loginBg})` }">
 			<div class="w-80 p-8 relative rounded-lg border-3 backdrop-blur-sm flex flex-col items-center bg-dark/16">
 				<h3 class="text-primary select-none">身份验证</h3>
 				<input class="w-full mt-6 text-center text-white input-primary" type="text" autofocus v-model="username" />

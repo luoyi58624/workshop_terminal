@@ -1,4 +1,5 @@
 <script setup lang="tsx">
+import loginBg from '@/assets/login_bg.jpg'
 import {breakpointOption} from "@/stores/breakpoint.ts";
 
 const router = useRouter()
@@ -48,7 +49,7 @@ const Dom1 = () => (
         <p class="my-2">工作中心：{'CNC'}</p>
         <p>机台编号：{'CNC10'}</p>
       </div>
-      <img src="/login_bg.jpg" alt="头像" class="h-full aspect-[3/4]"/>
+      <img src={loginBg} alt="头像" class="h-full aspect-[3/4]"/>
     </div>
 )
 
