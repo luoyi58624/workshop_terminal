@@ -61,6 +61,7 @@ export default defineConfig({
 		]
 	],
 	rules: [
+		['bg-lucency', { backgroundColor: 'rgba(0, 0, 0, 0)' }],
 		['m-transition', { transition: 'all ease-out 0.3s' }],
 		[
 			/^scrollbar-hide$/,

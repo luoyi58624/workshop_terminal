@@ -26,7 +26,7 @@ const router = createRouter({
 			meta: {
 				auth: true
 			},
-			component: () => import('@/pages/home.vue')
+			component: () => import('@/pages/home/index.vue')
 		},
 		{
 			path: '/test',

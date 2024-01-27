@@ -173,3 +173,7 @@ export function addDynamicRoute(routes: RouteRecordRaw | Array<RouteRecordRaw>, 
 		else router.addRoute(routes)
 	}
 }
+
+export function generateList(size: number) {
+	return Array.from(Array(size).keys())
+}

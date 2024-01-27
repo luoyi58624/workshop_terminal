@@ -1,14 +1,14 @@
-export const useAppStore = defineStore('app', {
-  state: () => ({
-    count: 0,
-    disableIconCache: false
-  }),
-  getters: {
-    double: state => state.count * 2
-  },
-  actions: {
-    increment() {
-      this.count++;
-    }
-  }
-});
+export const useAppStore = defineStore('app', () => {
+	const count = ref(0)
+	const double = computed(() => count.value * 2)
+
+	function increment() {
+		count.value++
+	}
+
+	return {
+		count,
+		double,
+		increment
+	}
+})

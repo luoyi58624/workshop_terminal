@@ -1,9 +1,9 @@
-export const useUserStore = defineStore('user', {
-  state: () => ({
-    userInfo: {} as any
-  }),
-  getters: {
-    isLogin: state => state.userInfo['id'] != null
-  },
-  actions: {}
-});
+export const useUserStore = defineStore('user', () => {
+	const userInfo = useStorage('user_info', {})
+	const isLogin = computed(() => userInfo.value['id'] != null)
+
+	return {
+		userInfo,
+		isLogin
+	}
+})

@@ -1,4 +1,7 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+const breakpointStore = useBreakpointStore()
+breakpointStore.initBreakpoint()
+</script>
 
 <template>
 	<el-config-provider>

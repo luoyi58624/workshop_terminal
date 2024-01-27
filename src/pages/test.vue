@@ -1,74 +1,25 @@
 <script setup lang="ts"></script>
 
 <template>
-	<h1>测试页面</h1>
-	<label class="switch">
-		<input type="checkbox" />
-		<span class="slider round"></span>
-	</label>
+	<div class="w-screen h-screen overflow-hidden flex flex-col">
+		<header class="h-16 shrink-0 bg-gray-2" />
+		<main class="grow flex w-full h-0 bg-gray-1">
+			<div class="w-60 shrink-0 bg-info"></div>
+			<div class="w-20 shrink-0 mx-4 bg-info"></div>
+			<div class="grow w-0 h-full flex flex-col bg-info">
+				<div class="h-16 shrink-0 bg-green-6"></div>
+				<div class="grow w-full overflow-x-scroll flex bg-gray">
+					<div v-for="item in 30" class="w-20 shrink-0">
+            <div>列表-{{ item }}</div>
+          </div>
+				</div>
+				<div class="h-16 shrink-0 bg-green-5"></div>
+			</div>
+		</main>
+		<footer class="h-20 shrink-0 bg-gray-4" >
+      <input class="px-1 py-2px mr-2 rounded focus:(ring-primary ring-2 ring-offset-2)" placeholder="请输入查询条件" />
+    </footer>
+	</div>
 </template>
 
-<style scoped lang="scss">
-/* The switch - the box around the slider */
-.switch {
-	position: relative;
-	display: inline-block;
-	width: 60px;
-	height: 34px;
-}
-
-/* Hide default HTML checkbox */
-.switch input {
-	opacity: 0;
-	width: 0;
-	height: 0;
-}
-
-/* The slider */
-.slider {
-	position: absolute;
-	cursor: pointer;
-	top: 0;
-	left: 0;
-	right: 0;
-	bottom: 0;
-	background-color: #ccc;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-
-.slider:before {
-	position: absolute;
-	content: '';
-	height: 26px;
-	width: 26px;
-	left: 4px;
-	bottom: 4px;
-	background-color: white;
-	-webkit-transition: 0.4s;
-	transition: 0.4s;
-}
-
-input:checked + .slider {
-	background-color: #2196f3;
-}
-
-input:focus + .slider {
-	box-shadow: 0 0 1px #2196f3;
-}
-
-input:checked + .slider:before {
-	-webkit-transform: translateX(26px);
-	-ms-transform: translateX(26px);
-	transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-	border-radius: 34px;
-}
-
-.slider.round:before {
-	border-radius: 50%;
-}
-</style>
+<style scoped lang="scss"></style>

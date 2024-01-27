@@ -43,6 +43,9 @@ devDependencies:
   '@commitlint/config-conventional':
     specifier: ^18.5.0
     version: 18.5.0
+  '@iconify/json':
+    specifier: ^2.2.174
+    version: 2.2.174
   '@types/lodash':
     specifier: ^4.14.202
     version: 4.14.202
@@ -839,6 +842,13 @@ packages:
 
   /@gar/promisify@1.1.3:
     resolution: {integrity: sha512-k2Ty1JcVojjJFwrg/ThKi2ujJ7XNLYaFGNB/bWT9wGR+oSMJHMa5w+CUq6p/pVrKeNNgA7pCqEcjSnHVoqJQFw==}
+    dev: true
+
+  /@iconify/json@2.2.174:
+    resolution: {integrity: sha512-+0p3wDhvlwsgqqCdToL0T15gb0hlLePfYrbSovRvL5Fo2+amuSzTwEFL/O/3tRAhpm1AboNDX7LmHD1cK2Ax1w==}
+    dependencies:
+      '@iconify/types': 2.0.0
+      pathe: 1.1.2
     dev: true
 
   /@iconify/types@2.0.0:

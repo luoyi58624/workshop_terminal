@@ -1,4 +1,5 @@
 @import '@unocss/reset/tailwind-compat.css';
+@import "element";
 
 * {
   margin: 0;
@@ -41,6 +42,15 @@ h6 {
   @apply text-sm font-bold;
 }
 
-.el-scrollbar__view{
+.el-scrollbar__view {
   height: 100%;
+}
+
+input {
+  @apply border;
+}
+
+input::placeholder {
+  font-size: 12px;
+  transform: translateY(-1px);
 }
