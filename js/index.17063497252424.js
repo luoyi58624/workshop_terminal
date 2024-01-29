@@ -1,1 +1,0 @@
-import{_ as e}from"./_plugin-vue_export-helper.1706349725242.js";import{e as c,f as o}from"./vue.1706349725242.js";const t={},r={class:""};function s(n,_){return c(),o("div",r,"工件转出")}const i=e(t,[["render",s]]);export{i as default};
