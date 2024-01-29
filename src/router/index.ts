@@ -2,6 +2,7 @@ import { createRouter, createWebHashHistory } from 'vue-router'
 
 const router = createRouter({
 	history: createWebHashHistory(),
+	linkActiveClass: 'actived',
 	routes: [
 		{
 			path: '/:pathMatch(.*)*',
@@ -22,14 +23,15 @@ const router = createRouter({
 		},
 		{
 			path: '/',
+			redirect: '/workpiece_confirm',
 			name: 'Home',
 			meta: {
 				auth: true
 			},
 			component: () => import('@/pages/home/index.vue'),
-			children:[
+			children: [
 				{
-					path: '',
+					path: 'workpiece_confirm',
 					name: 'WorkpieceConfirm',
 					component: () => import('@/pages/home/workpiece_confirm/index.vue')
 				},

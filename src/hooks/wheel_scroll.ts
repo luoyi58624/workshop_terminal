@@ -1,11 +1,11 @@
 import { Ref } from 'vue'
 
-/** 鼠标滚轮滚动元素hook
- *  @param scrollElement 滚动容器元素
- *  @param options 额外选项
+/** 监听鼠标滚轮滚动hook
+ *  @param scrollElementRef 滚动容器元素
+ *  @param options 其他参数
  *  */
 export function useWheelScroll(
-	scrollElement: Ref<HTMLElement | undefined>,
+	scrollElementRef: Ref<HTMLElement>,
 	options?: {
 		activeIndex?: Ref<number>
 	}
@@ -19,7 +19,7 @@ export function useWheelScroll(
 	const scope = effectScope()
 
 	function getScrollDom(): HTMLElement {
-		return unref(scrollElement)!
+		return unref(scrollElementRef)!
 	}
 
 	// 鼠标滚轮滚动事件处理
@@ -61,21 +61,24 @@ export function useWheelScroll(
 	}
 
 	// 滚动到激活标签
-	function moveActiveTab(activeTabDom: HTMLElement) {
+	function moveActiveTab(activeIndex: number, scrollAnimation = false) {
 		const scrollDom = getScrollDom()
-		const { offsetLeft, clientWidth } = activeTabDom
-		const value = Math.min(
-			scrollDom.scrollWidth - scrollDom.clientWidth,
-			Math.max(0, offsetLeft + clientWidth / 2 - scrollDom.clientWidth / 2)
-		)
-		if (value != 0) {
-			disableLeftScroll = false
-			disableRightScroll = false
+		const activeTabDom = getScrollDom().children[activeIndex] as HTMLElement
+		if (activeTabDom != null) {
+			const { offsetLeft, clientWidth } = activeTabDom
+			const value = Math.min(
+				scrollDom.scrollWidth - scrollDom.clientWidth,
+				Math.max(0, offsetLeft + clientWidth / 2 - scrollDom.clientWidth / 2)
+			)
+			if (value != 0) {
+				disableLeftScroll = false
+				disableRightScroll = false
+			}
+			scrollDom.scrollTo({
+				left: value,
+				behavior: scrollAnimation ? 'smooth' : 'instant'
+			})
 		}
-		scrollDom.scrollTo({
-			left: value,
-			behavior: 'smooth'
-		})
 	}
 
 	useEventListener(window, 'resize', () => {
@@ -88,11 +91,19 @@ export function useWheelScroll(
 		scope.run(() => {
 			if (options?.activeIndex != null) {
 				watch(options.activeIndex, value => {
-					const dom = getScrollDom().children[value] as HTMLElement
-					moveActiveTab(dom)
+					moveActiveTab(value, true)
 				})
 			}
 		})
+		setTimeout(() => {
+			moveActiveTab(options.activeIndex.value ?? 0)
+		}, 0)
+	})
+
+	onActivated(() => {
+		setTimeout(() => {
+			moveActiveTab(options.activeIndex.value ?? 0)
+		}, 0)
 	})
 
 	onBeforeUnmount(() => {

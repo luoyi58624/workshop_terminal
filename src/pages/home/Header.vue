@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import {useHomeStore} from "@/pages/home/store.ts";
+
 interface ButtonAttr {
 	name: string
 	path: string
@@ -6,17 +8,14 @@ interface ButtonAttr {
 
 const router = useRouter()
 const userStore = useUserStore()
+const homeStore = useHomeStore()
 
 // 工件按钮
 const workpieceButtons = ref<Array<ButtonAttr>>([])
 
-function setActiveWorkpieceButton(data: ButtonAttr) {
-	activeWorkpieceButton.value = data.id
-	router.push(data.path)
-}
-
 function logout() {
 	userStore.userInfo = {}
+  homeStore.activeProcessTask = 0
 	router.replace('/login')
 }
 
@@ -24,7 +23,7 @@ onBeforeMount(() => {
 	workpieceButtons.value = [
 		{
 			name: '工件确认',
-			path: '/'
+			path: '/workpiece_confirm'
 		},
 		{
 			name: '工件接受',
@@ -41,13 +40,9 @@ onBeforeMount(() => {
 <template>
 	<div class="flex items-center justify-between">
 		<div class="button-group" role="group">
-			<button
-				v-for="item in workpieceButtons"
-				:key="item.id"
-				:class="[activeWorkpieceButton === item.id && 'actived']"
-				@click="setActiveWorkpieceButton(item)">
+			<router-link v-for="item in workpieceButtons" :to="item.path" class="button-group-item">
 				{{ item.name }}
-			</button>
+			</router-link>
 		</div>
 		<button class="ring-btn-info text-primary xs:(px-2 py-1 text-xs) sm:(px-4 py-2 text-sm)" @click="logout">
 			注 销
@@ -59,27 +54,27 @@ onBeforeMount(() => {
 .button-group {
 	@apply inline-flex rounded-md shadow-sm;
 
-	& > button {
-		@apply xs:(px-2 py-1 text-xs) sm:(px-4 py-2 text-sm) select-none font-medium text-white bg-info/80  border-gray-200 hover:text-primary;
+	& > .button-group-item {
+		@apply xs:(px-2 py-1 text-xs) sm:(px-4 py-2 text-sm) cursor-pointer select-none font-medium text-white bg-info/80  border-gray-200 hover:text-primary;
 
 		&.actived {
 			@apply bg-secondPrimary text-primary;
 		}
 	}
 
-	& > button:first-child {
+	& > .button-group-item:first-child {
 		@apply border rounded-s-lg;
 	}
 
-	& > button:nth-child(n + 2):not(:nth-last-child(-n + 1)) {
+	& > .button-group-item:nth-child(n + 2):not(:nth-last-child(-n + 1)) {
 		@apply border-t border-b;
 	}
 
-	& > button:nth-child(n + 3):not(:nth-last-child(-n + 1)) {
+	& > .button-group-item:nth-child(n + 3):not(:nth-last-child(-n + 1)) {
 		@apply border-l;
 	}
 
-	& > button:last-child {
+	& > .button-group-item:last-child {
 		@apply border rounded-e-lg;
 	}
 }

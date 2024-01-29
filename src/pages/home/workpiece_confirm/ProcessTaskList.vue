@@ -1,21 +1,17 @@
 <script setup lang="tsx">
 import loginBg from '@/assets/login_bg.jpg'
-const progressTaskScrollRef = ref<HTMLElement>()
+import { useHomeStore } from '@/pages/home/store.ts'
 
-// 激活的加工任务
-const activeProcessTask = ref(0)
+const homeStore = useHomeStore()
+const { activeProcessTask } = storeToRefs(homeStore)
+const progressTaskScrollRef = ref<HTMLElement>()
 
 // 加工任务列表
 const processTaskList = ref<Array<{ id: number; name: string; state: number; image: string }>>([])
 
-
 useWheelScroll(progressTaskScrollRef, {
-  activeIndex: activeProcessTask
+	activeIndex: activeProcessTask
 })
-
-function setActiveProcessTask(value: number) {
-	activeProcessTask.value = value
-}
 
 const ProcessTaskState = (props: { state: number }) => {
 	switch (props.state) {
@@ -30,15 +26,15 @@ const ProcessTaskState = (props: { state: number }) => {
 	}
 }
 
-onBeforeMount(()=>{
-  processTaskList.value = Array.from(Array(30).keys()).map(i => {
-    return {
-      id: i,
-      name: `CNC${i + 1}`,
-      state: Math.floor(Math.random() * 3),
-      image: ''
-    }
-  })
+onBeforeMount(() => {
+	processTaskList.value = Array.from(Array(30).keys()).map(i => {
+		return {
+			id: i,
+			name: `CNC${i + 1}`,
+			state: Math.floor(Math.random() * 3),
+			image: ''
+		}
+	})
 })
 </script>
 
@@ -50,7 +46,7 @@ onBeforeMount(()=>{
 			v-for="item in processTaskList"
 			:key="item.id"
 			:class="[activeProcessTask === item.id && 'bg-secondPrimary!']"
-			@click="setActiveProcessTask(item.id)">
+			@click="activeProcessTask = item.id">
 			<ProcessTaskState :state="item.state" />
 			<img :src="loginBg" alt="加工图" class="grow" />
 			<div class="text-sm text-center text-primary">{{ item.name }}</div>
